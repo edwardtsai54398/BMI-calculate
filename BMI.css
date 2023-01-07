@@ -1,0 +1,328 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+    width: 1024px;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* -------------------------------------- */
+.banner{
+    height: 300px;
+    background-color: #424242;
+    padding: 92px 0px 73px 173px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    overflow: hidden;
+}
+h1 {
+    display: inline-block;
+    width: 117px;
+    height: 117px;
+    margin-right: 113px;
+    background-image: url(img/BMICLogo.png);
+    background-size: cover;
+    filter: drop-shadow(117px 0  #FFD366);
+    transform: translateX(-100%);
+    text-indent: 101%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.banner form{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+/* 身高體重欄位 */
+.input{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 53px;
+}
+.input div{
+    display: flex;
+    flex-direction: column;
+}
+.input label{
+    font-size: 18px;
+    color: #FFD366;
+    line-height: 1.2;
+}
+.input input{
+    width: 240px;
+    height: 30px;
+    padding:0 5px;
+    background-color: #424242;
+    color: #fff;
+    font-size: 18px;
+    border: #FFD366 2px solid;
+    border-radius: 8px;
+}
+.input input:focus{
+    outline: #FFD366 1px solid;
+    box-shadow: 0 0 11px #FFD366;
+}
+/* 結果 */
+.result .btn{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #FFD366;
+    border: none;
+    font-size: 24px;
+    color: #424242;
+    font-weight: 600;
+}
+.result .btn:hover{
+    cursor: pointer;
+    animation: borderlightYLW 1s infinite alternate;
+}
+@keyframes borderlightYLW{
+    0%{box-shadow: 0 0}
+    100%{box-shadow: 0 0 11px #FFD366;}
+}
+.result{
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background-color: #424242;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 18px;
+    position: relative;
+    transition: background-color 0.5s;
+}
+.result:hover{
+    cursor: pointer;
+    background-color: #dddddd;
+}
+.result p{
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 7px;
+}
+.result p em{
+    font-size: 14px;
+}
+/* 為何我滑鼠移到recal，但result也會被碰到?? */
+.recal{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: #424242 2px solid;
+    position: absolute;
+    bottom: 0;
+    right: -4px;
+}
+.result img{
+    position: absolute;
+    bottom: 4px;
+    right: 7px;
+    z-index: 10;
+}
+.result img:hover{
+    cursor: pointer;
+    animation: rotation 2.3s infinite reverse linear;
+    
+}
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.result span{
+    font-size: 16px;
+    position: absolute;
+    bottom: 5px;
+    right: -36px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.8s, transform 0.8s;
+}
+.situation{
+    font-size: 32px;
+    font-weight: 400;
+}
+/* 過去紀錄 */
+.history{
+    background-color: #eee;
+    padding: 48px 0px;
+}
+.history h2{
+    text-align: center;
+    font-size: 24px;
+    margin-bottom:24px;
+}
+.list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 66px;
+}
+.past{
+    background-color: #fff;
+    width: 642px;
+    height: 62px;
+    margin: 8px 0px;
+    padding: 21px 7px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.past > :first-child{
+    width: 110px;
+}
+.past div{
+    display: flex;
+    align-items: center;
+    margin-right: 42px;
+}
+.past span{
+    font-size: 20px;
+}
+.past em{
+    font-size: 12px;
+    margin-right: 7px;
+}
+.past .image-wrapper{
+    margin-right: 0px;
+}
+.past a{
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/trash_can.png);
+    background-size: cover;
+}
+.past i:hover{
+    color: #FF1200;
+    cursor: pointer;
+    animation: hithere 1.5s ease infinite;
+}
+@keyframes hithere{
+    30% { transform: scale(1.2); }
+    40%, 60% { transform: rotate(-20deg) scale(1.2); }
+    50% { transform: rotate(20deg) scale(1.2); }
+    70% { transform: rotate(0deg) scale(1.2); }
+    100% { transform: scale(1); }
+}
+.footer{
+    height: 90px;
+    background-color: #FFD366;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 不同結果不同顏色 */
+.result-green, .situa-green{
+    color: #86D73F;
+}
+.result-green{
+    border: 6px solid #86D73F;
+}
+.recal-green{
+    background-color: #86D73F;
+}
+.past-green{
+    border-left: 12px solid #86D73F
+}
+.result-blue, .situa-blue{
+    color: #31BAF9;
+}
+.result-blue{
+    border:  6px solid#31BAF9
+}
+.recal-blue{
+    background-color: #31BAF9;
+}
+.past-blue{
+    border-left: 12px solid #31BAF9
+}
+.result-ylw, .situa-ylw{
+    color: #FF982D;
+}
+.result-ylw{
+    border: 6px solid#FF982D;
+}
+.recal-ylw{
+    background-color: #FF982D;
+}
+.past-ylw{
+    border-left: 12px solid #FF982D
+}
+.result-org, .situa-org{
+    color: #FF6C03;
+}
+.result-org{
+    border: 6px solid#FF6C03;
+}
+.recal-org{
+    background-color: #FF6C03;
+}
+.past-org{
+    border-left: 12px solid #FF6C03
+}
+.result-red, .situa-red{
+    color: #FF1200;
+}
+.result-red{
+    border: 6px solid#FF1200;
+}
+.recal-red{
+    background-color: #FF1200;
+}
+.past-red{
+    border-left: 12px solid #FF1200
+}

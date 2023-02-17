@@ -24,8 +24,8 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+    height: 100vh;
 	line-height: 1;
-    width: 1024px;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -45,13 +45,33 @@ table {
 	border-spacing: 0;
 }
 /* -------------------------------------- */
-.banner{
-    height: 300px;
-    background-color: #424242;
-    padding: 92px 0px 73px 173px;
-    box-sizing: border-box;
+.d-flex{
     display: flex;
+}
+.d-flex-col{
+    display: flex;
+    flex-direction: column;
+}
+.align-c{
     align-items: center;
+}
+.d-none{
+    display: none;
+}
+.border-box{
+    box-sizing: border-box;
+}
+.position-re{
+    position: relative;
+}
+.position-ab{
+    position: absolute;
+}
+/* -------------------------------------- */
+.banner{
+    height: 250px;
+    background-color: #424242;
+    justify-content: center;
 }
 .logo{
     overflow: hidden;
@@ -69,22 +89,14 @@ h1 {
     overflow: hidden;
     white-space: nowrap;
 }
-.banner form{
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
 /* 身高體重欄位 */
 .input{
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding-top: 20px;
     margin-right: 53px;
 }
 .input div{
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 20px;
 }
 .input label{
     font-size: 18px;
@@ -94,7 +106,7 @@ h1 {
 .input input{
     width: 240px;
     height: 30px;
-    padding:0 5px;
+    padding:0 10px;
     background-color: #424242;
     color: #fff;
     font-size: 18px;
@@ -105,18 +117,24 @@ h1 {
     outline: #FFD366 1px solid;
     box-shadow: 0 0 11px #FFD366;
 }
+.red{
+    font-size: 16px;
+    height: 20px;
+    color: #FF1200;
+}
 /* 結果 */
-.result .btn{
+.btn{
     width: 120px;
     height: 120px;
     border-radius: 50%;
     background-color: #FFD366;
-    border: none;
     font-size: 24px;
     color: #424242;
     font-weight: 600;
+    border: none;
+    margin-right: 18px;
 }
-.result .btn:hover{
+.btn:hover{
     cursor: pointer;
     animation: borderlightYLW 1s infinite alternate;
 }
@@ -125,16 +143,16 @@ h1 {
     100%{box-shadow: 0 0 11px #FFD366;}
 }
 .result{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
     width: 108px;
     height: 108px;
     border-radius: 50%;
     background-color: #424242;
-    display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
     margin-right: 18px;
-    position: relative;
     transition: background-color 0.5s;
 }
 .result:hover{
@@ -143,33 +161,35 @@ h1 {
 }
 .result p{
     font-size: 32px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
     position: relative;
     top: 7px;
 }
-.result p em{
-    font-size: 14px;
+.result span{
+    font-size: 16px;
+    bottom: 10px;
+    right: -36px;
+    opacity: 1;
+    transform: translateX(-10px);
+    transition: opacity 0.8s, transform 0.8s;
 }
 /* 為何我滑鼠移到recal，但result也會被碰到?? */
 .recal{
+    display: none;
+    position: absolute;
     width: 28px;
     height: 28px;
     border-radius: 50%;
     border: #424242 2px solid;
-    position: absolute;
     bottom: 0;
     right: -4px;
 }
-.result img{
+.recal img{
     position: absolute;
     bottom: 4px;
     right: 7px;
     z-index: 10;
 }
-.result img:hover{
+.recal img:hover{
     cursor: pointer;
     animation: rotation 2.3s infinite reverse linear;
     
@@ -185,31 +205,56 @@ h1 {
 .result span{
     font-size: 16px;
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     right: -36px;
     opacity: 0;
     transform: translateX(-10px);
     transition: opacity 0.8s, transform 0.8s;
 }
 .situation{
+    width: 150px;
     font-size: 32px;
     font-weight: 400;
 }
 /* 過去紀錄 */
 .history{
     background-color: #eee;
-    padding: 48px 0px;
+    padding: 48px 0px 20px;
+    height: calc(100vh-340px);
 }
 .history h2{
     text-align: center;
     font-size: 24px;
-    margin-bottom:24px;
+    margin-bottom:20px;
 }
 .list{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 66px;
+    height: 150px;
+    width: 670px;
+    overflow-y: scroll;
+    -webkit-mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 14px, black 14px);
+    mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 14px, black 14px);
+    -webkit-mask-size: 100% 200000px;
+    mask-size: 100% 200000px;
+    -webkit-mask-position: left bottom;
+    mask-position: right bottom;
+    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+}
+.list:hover {
+  -webkit-mask-position: left top;
+}
+::-webkit-scrollbar{
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 .past{
     background-color: #fff;

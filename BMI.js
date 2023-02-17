@@ -1,27 +1,36 @@
 const Height =document.getElementById('height');
 const Weight =document.getElementById('weight');
+const Red =document.querySelector('.red')
 const BTN =document.querySelector('.btn');
 const Result =document.querySelector('.result');
-const Form =document.querySelector('.banner form')
-const wghtSituation =document.createElement('p')
+const Recal =document.querySelector('.recal')
+const Banner =document.querySelector('.banner')
+const wghtSituation =document.querySelector('.situation')
 const historyData =JSON.parse(localStorage.getItem('historyData'))||[]
 const UL =document.querySelector('.list')
 updateList()
 BTN.addEventListener('click',BMIcal);
 UL.addEventListener('click',deleteHistory);
+Recal.addEventListener('mouseenter',spanShow);
+Recal.addEventListener('mouseleave',spanHide)
+Recal.addEventListener('click',BMIcal);
 
 function BMIcal(){
     // 計算BMI
-    const Hvalue=parseInt(Height.value);
-    const Wvalue=parseInt(Weight.value);
-    const Hmeter=Hvalue/100;
-    const BMI=Math.round(Wvalue/(Hmeter*Hmeter)*10)/10;
+    let hValue=Height.value;
+    let wValue=Weight.value;
+    if(hValue==="" || wValue===""){
+        console.log('return')
+        Red.textContent="*請輸入身高和體重"
+        return;
+    }else{
+        console.log('?')
+        Red.textContent=""
+    }
+    let hMeter=hValue/100;
+    let BMI=Math.round(wValue/(hMeter*hMeter)*10)/10;
+    
     updateResult(BMI);
-    // banner出現.recal，綁定Recal事件
-    const Recal =document.querySelector('.recal');
-    Recal.addEventListener('mouseenter',spanShow);
-    Recal.addEventListener('mouseleave',spanHide)
-    Recal.addEventListener('click',BMIcal);
     
     // 判斷BMI結果，進行狀態管理
     switch(true){
@@ -51,31 +60,28 @@ function BMIcal(){
         break;
     };
     // 在結果的網頁節點更改class命名
-    Result.setAttribute('class','result result-'+color);
-    Recal.setAttribute('class','recal recal-'+color);
+    Result.setAttribute('class',`result result-${color}`);
+    Recal.setAttribute('class',`recal recal-${color}`);
     wghtSituation.textContent=`${situation}`;
-    wghtSituation.setAttribute('class','situation situa-'+color);
-    // createElement<p>放在最後
-    Form.appendChild(wghtSituation);
+    wghtSituation.setAttribute('class',`situation situa-${color}`);
 
-    updateData(Hvalue,Wvalue,BMI,situation)
+    updateData(hValue,wValue,BMI,situation)
     updateList(color)
     // 將data字串化，setItem更新到localStorage
     localStorage.setItem('historyData',JSON.stringify(historyData))
 }
 // banner的圓圈更新結果
 function updateResult(BMI){
-    Result.innerHTML=
-    `<p>${BMI}<em>BMI</em></p>
-    <div class="recal">
-        <img src="img/icons_loop.png" alt="">
-    </div>
-    <span>重測</span>`
+    BTN.classList.add('d-none')
+    Result.setAttribute('style','display:flex')
+    document.querySelector('.result p').textContent=`${BMI}`
+    document.querySelector('.result p').setAttribute('style','display:flex')
+    Recal.setAttribute('style','display:flex')
 }
 // 新結果存取(push)到data
-function updateData(Hvalue,Wvalue,BMI,situation){
-    console.log(Hvalue);
-    console.log(Wvalue);
+function updateData(hValue,Value,BMI,situation){
+    console.log(hValue);
+    console.log(Value);
     console.log(BMI);
     let year =new Date().getFullYear()
     let month =new Date().getMonth()+1
@@ -83,8 +89,8 @@ function updateData(Hvalue,Wvalue,BMI,situation){
     let newdata={status:situation,
                 clr:color,
                 bmi:BMI,
-                weight:Wvalue,
-                height:Hvalue,
+                weight:Value,
+                height:hValue,
                 date:year+'-'+month+'-'+day}
     console.log(newdata)
     historyData.push(newdata)
@@ -105,25 +111,25 @@ function updateList(color){
 
     let str=''
     let Len=historyData.length
-    for(let i=0;i<Len;i++){
-        str+=`<li class="past past-${historyData[i].clr}">
-                <span>${historyData[i].status}</span>
-                <div><em>BMI</em><span>${historyData[i].bmi}</span></div>
-                <div><em>weight</em><span>${historyData[i].weight}kg</span></div>
-                <div><em>height</em><span>${historyData[i].height}cm</span></div>
-                <em>${historyData[i].date}</em>
+    historyData.forEach(function(item,i){
+        str+=`<li class="past past-${item.clr}">
+                <span>${item.status}</span>
+                <div><em>BMI</em><span>${item.bmi}</span></div>
+                <div><em>weight</em><span>${item.weight}kg</span></div>
+                <div><em>height</em><span>${item.height}cm</span></div>
+                <em>${item.date}</em>
                 <i class="fa-solid fa-trash-can" data-num="${i}"></i>
             </li>`
-    }
+    })
     UL.innerHTML=str;
 }
 
 // 重測出現
 function spanShow(){
-    const ResultSpan =document.querySelector('.result span');
+    let ResultSpan =document.querySelector('.result span');
     ResultSpan.setAttribute('style','opacity:1;transform:translateX(0px);');
 }
 function spanHide(){
-    const ResultSpan =document.querySelector('.result span');
+    let ResultSpan =document.querySelector('.result span');
     ResultSpan.setAttribute('style','opacity:0;transform:translateX(-10px);');
 }
